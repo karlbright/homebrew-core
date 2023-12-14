@@ -42,6 +42,25 @@ class Rtx < Formula
     EOS
   end
 
+  def caveats
+    <<~EOS
+      To use rtx, add the following line (or equievalent) to your shell profile.
+      e.g. ~/.profile or ~/.zshrc:
+        eval "$(#{bin}/rtx activate zsh)"
+      e.g. ~/.bash_profile or ~/.bashrc:
+        eval "$(#{bin}/rtx activate bash)"
+
+      If you are using fish shell, rtx will be activated for you automatically.
+      This feature can be disabled via your fish config:
+        set -Ux RTX_FISH_AUTO_ACTIVATE 0
+      Disabling auto activate within fish requires you to ensure you add the
+      following line (or equivalent) to your fish shell config:
+        #{bin}/rtx activate fish | source
+
+      Restart your terminal for the settings to take effect.
+    EOS
+  end
+
   test do
     system "#{bin}/rtx", "install", "nodejs@18.13.0"
     assert_match "v18.13.0", shell_output("#{bin}/rtx exec nodejs@18.13.0 -- node -v")
